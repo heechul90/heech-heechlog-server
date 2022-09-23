@@ -1,6 +1,7 @@
 package com.heech.heechlog.core.domain;
 
 import com.heech.heechlog.common.entity.BaseEntity;
+import com.heech.heechlog.core.dto.UpdatePostParam;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,5 +22,9 @@ public class Post extends BaseEntity {
 
     @Lob
     private String content;
+
+    public void updatePost(UpdatePostParam param) {
+
+    }
 
 }
