@@ -1,0 +1,67 @@
+--- #\uB85C\uCEEC1 \uC124\uC815
+spring:
+  config:
+    activate:
+      on-profile: local1
+
+  datasource:
+    url: jdbc:mariadb://localhost:3306/heech_db?allowPublicKeyRetrieval=true&useSSL=false
+    username: heech_user
+    password: heech_pass
+    driver-class-name: org.mariadb.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        #        show_sql: true
+        format_sql: true
+        ues_sql_comment: true
+        default_batch_fetch_size: 1000
+    open-in-view: true
+
+  messages:
+    basename: messages,errors
+
+server:
+  port: 10002
+
+logging:
+  level:
+    root: info
+    org.hibernate.SQL: debug
+
+--- #\uB85C\uCEEC2 \uC124\uC815
+spring:
+  config:
+    activate:
+      on-profile: local2
+
+  datasource:
+    url: jdbc:mariadb://localhost:3307/heech_db?allowPublicKeyRetrieval=true&useSSL=false
+    username: heech_user
+    password: heech_pass
+    driver-class-name: org.mariadb.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        #        show_sql: true
+        format_sql: true
+        ues_sql_comment: true
+        default_batch_fetch_size: 1000
+    open-in-view: true
+
+  messages:
+    basename: messages,errors
+
+server:
+  port: 10002
+
+logging:
+  level:
+    root: info
+    org.hibernate.SQL: debug
