@@ -23,6 +23,8 @@ public class Post extends BaseEntity {
     @Lob
     private String content;
 
+    private Integer hits;
+
     public void updatePost(UpdatePostParam param) {
 
     }
