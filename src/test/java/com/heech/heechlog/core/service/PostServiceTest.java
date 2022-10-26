@@ -2,6 +2,8 @@ package com.heech.heechlog.core.service;
 
 import com.heech.heechlog.common.exception.EntityNotFound;
 import com.heech.heechlog.core.domain.Post;
+import com.heech.heechlog.core.dto.PostSearchCondition;
+import com.heech.heechlog.core.dto.SearchCondition;
 import com.heech.heechlog.core.dto.UpdatePostParam;
 import com.heech.heechlog.core.repository.PostQueryRepository;
 import com.heech.heechlog.core.repository.PostRepository;
@@ -11,14 +13,19 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class PostServiceTest {
@@ -52,12 +59,27 @@ class PostServiceTest {
     }
 
     @Test
+    @DisplayName("post 목록 조회")
     void findPosts() {
         //given
+        List<Post> posts = new ArrayList<>();
+        for (int i = 0; i < 30; i++) {
+            posts.add(getPost(POST_TITLE + i, POST_CONTENT));
+        }
+
+        //검색 안먹힘
+        PostSearchCondition condition = new PostSearchCondition();
+        condition.setSearchCondition(SearchCondition.TITLE);
+        condition.setSearchKeyword("0");
+        PageRequest pageRequest = PageRequest.of(0, 10);
+        given(postQueryRepository.findPosts(condition, pageRequest)).willReturn(new PageImpl<>(posts));
 
         //when
+        Page<Post> contents = postService.findPosts(condition, pageRequest);
 
         //then
+        assertThat(contents.getTotalElements()).isEqualTo(3);
+        assertThat(contents.getContent().size()).isEqualTo(3);
     }
 
     @Test
@@ -129,7 +151,6 @@ class PostServiceTest {
         Post post = getPost(POST_TITLE, POST_CONTENT);
         given(postRepository.findById(any(Long.class))).willReturn(Optional.ofNullable(post));
 
-
         //when
         postService.deletePost(any(Long.class));
 
@@ -149,7 +170,17 @@ class PostServiceTest {
                 .hasMessageStartingWith(HAS_MESSAGE_STARTING_WITH + ENTITY_NAME)
                 .hasMessageEndingWith(HAS_MESSAGE_ENDING_WITH + NOT_FOUND_ID);
 
+        assertThatThrownBy(() -> postService.updatePost(NOT_FOUND_ID, any(UpdatePostParam.class)))
+                .isInstanceOf(EntityNotFound.class)
+                .hasMessageStartingWith(HAS_MESSAGE_STARTING_WITH + ENTITY_NAME)
+                .hasMessageEndingWith(HAS_MESSAGE_ENDING_WITH + NOT_FOUND_ID);
+
+        assertThatThrownBy(() -> postService.deletePost(NOT_FOUND_ID))
+                .isInstanceOf(EntityNotFound.class)
+                .hasMessageStartingWith(HAS_MESSAGE_STARTING_WITH + ENTITY_NAME)
+                .hasMessageEndingWith(HAS_MESSAGE_ENDING_WITH + NOT_FOUND_ID);
+
         //verify
-        verify(postRepository, times(1)).findById(NOT_FOUND_ID);
+        verify(postRepository, times(3)).findById(NOT_FOUND_ID);
     }
 }

@@ -1,4 +1,4 @@
---- #\uB85C\uCEEC1 \uC124\uC815
+--- #local mariadb
 spring:
   config:
     activate:
@@ -32,7 +32,7 @@ logging:
     root: info
     org.hibernate.SQL: debug
 
---- #\uB85C\uCEEC2 \uC124\uC815
+--- #docker mariadb
 spring:
   config:
     activate:
