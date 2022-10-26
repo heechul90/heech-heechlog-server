@@ -16,6 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 public class CreatePostRequest {
 
+    @NotBla
     private String postTitle;
     private String postContent;
 
