@@ -1,6 +1,6 @@
 package com.heech.heechlog.common.exception;
 
-import com.heech.heechlog.common.json.JsonError;
+import com.heech.heechlog.common.json.ErrorCode;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
@@ -10,7 +10,7 @@ import java.util.List;
 @Getter
 public abstract class CommonException extends RuntimeException {
 
-    List<JsonError> errors = new ArrayList<>();
+    List<ErrorCode> errorCodes = new ArrayList<>();
 
     public CommonException(String message) {
         super(message);
@@ -22,7 +22,7 @@ public abstract class CommonException extends RuntimeException {
 
     public abstract HttpStatus httpStatus();
 
-    public void addError(List<JsonError> errors) {
-        this.errors = errors;
+    public void addErrorCode(List<ErrorCode> errorCodes) {
+        this.errorCodes = errorCodes;
     }
 }
