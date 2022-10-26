@@ -10,5 +10,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UpdatePostResponse {
 
-    private Long updatedPost;
+    private Long updatedPostId;
+    private String postTitle;
 }

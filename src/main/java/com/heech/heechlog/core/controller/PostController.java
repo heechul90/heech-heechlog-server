@@ -87,7 +87,7 @@ public class PostController {
         postService.updatePost(postId, request.toParam());
         Post updatedPost = postService.findPost(postId);
 
-        return JsonResult.OK(new UpdatePostResponse(updatedPost.getId()));
+        return JsonResult.OK(new UpdatePostResponse(updatedPost.getId(), updatedPost.getTitle()));
     }
 
     /**
