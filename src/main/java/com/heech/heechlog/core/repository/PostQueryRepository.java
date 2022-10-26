@@ -78,8 +78,8 @@ public class PostQueryRepository {
             return post.title.contains(searchKeyword);
         } else if (SearchCondition.CONTENT.equals(searchCondition)) {
             return post.content.contains(searchKeyword);
-        } else {
-            return null;
         }
+
+        return null;
     }
 }
