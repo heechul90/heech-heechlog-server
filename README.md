@@ -2,7 +2,7 @@
 
 ## heech service
 ### server
-[[회원서버]](https://github.com/heechul90/heech-member-server) <br/>
+[[히치회원서버]](https://github.com/heechul90/heech-member-server) <br/>
 [[히치로그서버]](https://github.com/heechul90/heech-heechlog-server) 👈 <br/>
 
 ### client
