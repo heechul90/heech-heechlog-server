@@ -3,7 +3,7 @@ package com.heech.heechlog.core.service;
 import com.heech.heechlog.core.domain.Post;
 import com.heech.heechlog.core.dto.PostSearchCondition;
 import com.heech.heechlog.core.dto.UpdatePostParam;
-import com.heech.heechlog.core.exception.EntityNotFound;
+import com.heech.heechlog.common.exception.EntityNotFound;
 import com.heech.heechlog.core.repository.PostQueryRepository;
 import com.heech.heechlog.core.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
@@ -35,8 +35,12 @@ public class PostService {
      * Post 단건 조회
      */
     public Post findPost(Long postId) {
-        return postRepository.findById(postId)
+        Post findPost = postRepository.findById(postId)
                 .orElseThrow(() -> new EntityNotFound(ENTITY_NAME, postId));
+
+        //조회수 증가
+        findPost.hit();
+        return findPost;
     }
 
     /**
@@ -66,5 +70,4 @@ public class PostService {
                 .orElseThrow(() -> new EntityNotFound(ENTITY_NAME, postId));
         postRepository.delete(findPost);
     }
-
 }

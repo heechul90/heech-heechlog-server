@@ -1,4 +1,4 @@
-package com.heech.heechlog.core.exception;
+package com.heech.heechlog.common.exception;
 
 import com.heech.heechlog.common.exception.CommonException;
 import org.springframework.http.HttpStatus;
