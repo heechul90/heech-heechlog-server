@@ -5,7 +5,7 @@ import org.springframework.http.HttpStatus;
 public class EntityNotFound extends CommonException {
 
     public EntityNotFound(String entityName, Long entityId) {
-        super("존재하지 않은 " + entityName + "입니다. id = " + entityId);
+        super("존재하지 않는 " + entityName + "입니다. id = " + entityId);
     }
 
     public EntityNotFound(String message, Throwable cause) {
