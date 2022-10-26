@@ -1,10 +1,8 @@
 package com.heech.heechlog.core.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.heech.heechlog.common.exception.EntityNotFound;
-import com.heech.heechlog.common.json.JsonResult;
 import com.heech.heechlog.core.controller.request.CreatePostRequest;
 import com.heech.heechlog.core.controller.request.UpdatePostRequest;
 import com.heech.heechlog.core.domain.Post;
@@ -15,10 +13,8 @@ import com.heech.heechlog.core.service.PostService;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.PageImpl;
@@ -27,7 +23,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -43,7 +38,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 @WebMvcTest(PostController.class)
-//@ExtendWith(MockitoExtension.class)
+@AutoConfigureMockMvc
 class PostControllerTest {
 
     //REQUEST_URL
@@ -179,6 +174,25 @@ class PostControllerTest {
     }
 
     @Test
+    @DisplayName("post 저장 API_BINDING_RESULT_EXCEPTION")
+    void savePost_bindingResultException() throws Exception {
+        //given
+        Post post = getPost("", POST_CONTENT);
+        given(postService.savePost(any(Post.class))).willReturn(post);
+
+
+        CreatePostRequest request = new CreatePostRequest("", POST_CONTENT);
+
+        //expected
+        mockMvc.perform(MockMvcRequestBuilders.post(API_SAVE_POST)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request))).andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.status").value(HttpStatus.OK.name()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.data").isNotEmpty())
+                .andDo(MockMvcResultHandlers.print());
+    }
+
+    @Test
     @DisplayName("post 수정 API")
     void updatePost() throws Exception {
         //given
@@ -198,27 +212,6 @@ class PostControllerTest {
 
         //verify
         verify(postService, times(1)).updatePost(any(Long.class), any(UpdatePostParam.class));
-    }
-
-    @Test
-    @DisplayName("post 수정 API_ENTITY NOT FOUND")
-    void updatePost_exception() throws Exception {
-        //given
-        given(postService.findPost(any(Long.class))).willThrow(new EntityNotFound(ENTITY_NAME, NOT_FOUND_ID));
-
-        UpdatePostRequest request = new UpdatePostRequest(UPDATE_TITLE, UPDATE_CONTENT);
-
-        //expected
-        mockMvc.perform(MockMvcRequestBuilders.put(API_UPDATE_POST, 1L)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(request)))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.status").value(HttpStatus.NOT_FOUND.name()))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.message").value(ENTITY_NOT_FOUND_MESSAGE))
-                .andDo(MockMvcResultHandlers.print());
-
-        //verify
-        verify(postService, times(1)).findPost(any(Long.class));
     }
 
     @Test
