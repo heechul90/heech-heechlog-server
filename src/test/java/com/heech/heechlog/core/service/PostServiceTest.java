@@ -69,8 +69,6 @@ class PostServiceTest {
 
         //검색 안먹힘
         PostSearchCondition condition = new PostSearchCondition();
-        condition.setSearchCondition(SearchCondition.TITLE);
-        condition.setSearchKeyword("0");
         PageRequest pageRequest = PageRequest.of(0, 10);
         given(postQueryRepository.findPosts(condition, pageRequest)).willReturn(new PageImpl<>(posts));
 
@@ -78,8 +76,8 @@ class PostServiceTest {
         Page<Post> contents = postService.findPosts(condition, pageRequest);
 
         //then
-        assertThat(contents.getTotalElements()).isEqualTo(3);
-        assertThat(contents.getContent().size()).isEqualTo(3);
+        assertThat(contents.getTotalElements()).isEqualTo(30);
+        assertThat(contents.getContent().size()).isEqualTo(30);
     }
 
     @Test
