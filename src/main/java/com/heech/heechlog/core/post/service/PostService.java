@@ -1,11 +1,11 @@
-package com.heech.heechlog.core.service;
+package com.heech.heechlog.core.post.service;
 
-import com.heech.heechlog.core.domain.Post;
-import com.heech.heechlog.core.dto.PostSearchCondition;
-import com.heech.heechlog.core.dto.UpdatePostParam;
 import com.heech.heechlog.common.exception.EntityNotFound;
-import com.heech.heechlog.core.repository.PostQueryRepository;
-import com.heech.heechlog.core.repository.PostRepository;
+import com.heech.heechlog.core.post.domain.Post;
+import com.heech.heechlog.core.post.dto.PostSearchCondition;
+import com.heech.heechlog.core.post.dto.UpdatePostParam;
+import com.heech.heechlog.core.post.repository.PostQueryRepository;
+import com.heech.heechlog.core.post.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;

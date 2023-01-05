@@ -49,5 +49,4 @@ public class JsonResult<T> {
                 .errors(errors)
                 .build();
     }
-
 }

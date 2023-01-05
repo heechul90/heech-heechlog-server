@@ -1,4 +1,4 @@
-package com.heech.heechlog.core.dto;
+package com.heech.heechlog.core.post.dto;
 
 import com.heech.heechlog.common.dto.CommonSearchCondition;
 import lombok.Getter;

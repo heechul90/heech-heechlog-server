@@ -1,15 +1,15 @@
-package com.heech.heechlog.core.controller;
+package com.heech.heechlog.core.post.controller;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.heech.heechlog.common.exception.EntityNotFound;
-import com.heech.heechlog.core.controller.request.CreatePostRequest;
-import com.heech.heechlog.core.controller.request.UpdatePostRequest;
-import com.heech.heechlog.core.domain.Post;
-import com.heech.heechlog.core.dto.PostSearchCondition;
-import com.heech.heechlog.core.dto.SearchCondition;
-import com.heech.heechlog.core.dto.UpdatePostParam;
-import com.heech.heechlog.core.service.PostService;
+import com.heech.heechlog.core.post.controller.request.CreatePostRequest;
+import com.heech.heechlog.core.post.controller.request.UpdatePostRequest;
+import com.heech.heechlog.core.post.domain.Post;
+import com.heech.heechlog.core.post.dto.PostSearchCondition;
+import com.heech.heechlog.core.post.dto.SearchCondition;
+import com.heech.heechlog.core.post.dto.UpdatePostParam;
+import com.heech.heechlog.core.post.service.PostService;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -68,7 +68,7 @@ class PostControllerTest {
     @Autowired ObjectMapper objectMapper;
 
     private Post getPost(String postTitle, String postContent) {
-        return Post.createPostBuilder()
+        return Post.createPost()
                 .title(postTitle)
                 .content(postContent)
                 .build();

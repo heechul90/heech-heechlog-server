@@ -1,4 +1,4 @@
-package com.heech.heechlog.core.controller.response;
+package com.heech.heechlog.core.post.controller.response;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

@@ -1,14 +1,14 @@
-package com.heech.heechlog.core.controller;
+package com.heech.heechlog.core.post.controller;
 
 import com.heech.heechlog.common.json.JsonResult;
-import com.heech.heechlog.core.controller.request.CreatePostRequest;
-import com.heech.heechlog.core.controller.request.UpdatePostRequest;
-import com.heech.heechlog.core.controller.response.CreatePostResponse;
-import com.heech.heechlog.core.controller.response.UpdatePostResponse;
-import com.heech.heechlog.core.domain.Post;
-import com.heech.heechlog.core.dto.PostDto;
-import com.heech.heechlog.core.dto.PostSearchCondition;
-import com.heech.heechlog.core.service.PostService;
+import com.heech.heechlog.core.post.controller.request.CreatePostRequest;
+import com.heech.heechlog.core.post.controller.request.UpdatePostRequest;
+import com.heech.heechlog.core.post.controller.response.CreatePostResponse;
+import com.heech.heechlog.core.post.controller.response.UpdatePostResponse;
+import com.heech.heechlog.core.post.domain.Post;
+import com.heech.heechlog.core.post.dto.PostDto;
+import com.heech.heechlog.core.post.dto.PostSearchCondition;
+import com.heech.heechlog.core.post.service.PostService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -33,15 +33,7 @@ public class PostController {
     public JsonResult findPosts(PostSearchCondition condition, Pageable pageable) {
         Page<Post> contents = postService.findPosts(condition, pageable);
         List<PostDto> posts = contents.stream()
-                .map(post -> PostDto.builder()
-                        .postId(post.getId())
-                        .postTitle(post.getTitle())
-                        .postContent(post.getContent())
-                        .hits(post.getHits())
-                        .createdDate(post.getCreatedDate())
-                        .createdBy(post.getCreatedBy())
-                        .build()
-                )
+                .map(PostDto::new)
                 .collect(Collectors.toList());
         return JsonResult.OK(posts);
     }
@@ -52,14 +44,7 @@ public class PostController {
     @GetMapping("/{postId}")
     public JsonResult findPost(@PathVariable("postId") Long postId) {
         Post findPost = postService.findPost(postId);
-        PostDto post = PostDto.builder()
-                .postId(findPost.getId())
-                .postTitle(findPost.getTitle())
-                .postContent(findPost.getContent())
-                .hits(findPost.getHits())
-                .createdDate(findPost.getCreatedDate())
-                .createdBy(findPost.getCreatedBy())
-                .build();
+        PostDto post = new PostDto(findPost);
         return JsonResult.OK(post);
     }
 

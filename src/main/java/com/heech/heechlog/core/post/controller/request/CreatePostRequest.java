@@ -1,26 +1,28 @@
-package com.heech.heechlog.core.controller.request;
+package com.heech.heechlog.core.post.controller.request;
 
 import com.heech.heechlog.common.exception.JsonInvalidRequest;
 import com.heech.heechlog.common.json.ErrorCode;
-import com.heech.heechlog.core.dto.UpdatePostParam;
+import com.heech.heechlog.core.post.domain.Post;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class UpdatePostRequest {
+public class CreatePostRequest {
 
+    @NotBlank
     private String postTitle;
     private String postContent;
 
-    public UpdatePostParam toParam() {
-        return UpdatePostParam.builder()
+    public Post toPost() {
+        return Post.createPost()
                 .title(this.postTitle)
                 .content(this.postContent)
                 .build();

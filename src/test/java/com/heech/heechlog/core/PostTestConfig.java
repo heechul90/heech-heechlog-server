@@ -1,6 +1,6 @@
 package com.heech.heechlog.core;
 
-import com.heech.heechlog.core.repository.PostQueryRepository;
+import com.heech.heechlog.core.post.repository.PostQueryRepository;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 

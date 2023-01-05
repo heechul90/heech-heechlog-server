@@ -1,8 +1,8 @@
-package com.heech.heechlog.core.repository;
+package com.heech.heechlog.core.post.repository;
 
-import com.heech.heechlog.core.domain.Post;
-import com.heech.heechlog.core.dto.PostSearchCondition;
-import com.heech.heechlog.core.dto.SearchCondition;
+import com.heech.heechlog.core.post.domain.Post;
+import com.heech.heechlog.core.post.dto.PostSearchCondition;
+import com.heech.heechlog.core.post.dto.SearchCondition;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import java.util.List;
 
-import static com.heech.heechlog.core.domain.QPost.post;
+import static com.heech.heechlog.core.post.domain.QPost.post;
 import static org.springframework.util.StringUtils.hasText;
 
 @Repository

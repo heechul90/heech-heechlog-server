@@ -1,7 +1,7 @@
-package com.heech.heechlog.core.domain;
+package com.heech.heechlog.core.post.domain;
 
 import com.heech.heechlog.common.entity.BaseEntity;
-import com.heech.heechlog.core.dto.UpdatePostParam;
+import com.heech.heechlog.core.post.dto.UpdatePostParam;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -30,7 +30,7 @@ public class Post extends BaseEntity {
 
     //===생성 메서드===//
     /** 저장 */
-    @Builder(builderClassName = "createPostBuilder", builderMethodName = "createPostBuilder")
+    @Builder(builderMethodName = "createPost")
     public Post(String title, String content) {
         this.title = title;
         this.content = content;

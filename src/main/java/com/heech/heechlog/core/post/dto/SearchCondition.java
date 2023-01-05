@@ -1,4 +1,4 @@
-package com.heech.heechlog.core.dto;
+package com.heech.heechlog.core.post.dto;
 
 public enum SearchCondition {
 

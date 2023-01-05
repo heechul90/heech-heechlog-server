@@ -1,9 +1,9 @@
-package com.heech.heechlog.core.repository;
+package com.heech.heechlog.core.post.repository;
 
 import com.heech.heechlog.core.PostTestConfig;
-import com.heech.heechlog.core.domain.Post;
-import com.heech.heechlog.core.dto.PostSearchCondition;
-import com.heech.heechlog.core.dto.SearchCondition;
+import com.heech.heechlog.core.post.domain.Post;
+import com.heech.heechlog.core.post.dto.PostSearchCondition;
+import com.heech.heechlog.core.post.dto.SearchCondition;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +34,7 @@ class PostQueryRepositoryTest {
     @Autowired PostQueryRepository postQueryRepository;
 
     private Post getPost(String title, String content) {
-        return Post.createPostBuilder()
+        return Post.createPost()
                 .title(title)
                 .content(content)
                 .build();
